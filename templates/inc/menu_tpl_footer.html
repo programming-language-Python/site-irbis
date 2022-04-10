@@ -1,0 +1,19 @@
+{% load static %}
+{% comment %} {% load cache %}
+{% cache 60 * 30 footer %} {% endcomment %}
+<div class="{{ footer }}">
+    <div class="container">
+        <div class="center">
+            <a href="{% url 'app:home' %}"><img src="{% static './css/assets/img/Bars.png' %}" alt="" />
+                <p>PINK IRBIS</p>
+            </a>
+            <ul>
+
+                {% include 'inc/headerElements.html' %}
+
+            </ul>
+        </div>
+        <div class="copyright">copyright 2019-2021</div>
+    </div>
+</div>
+{% comment %} {% endcache %} {% endcomment %}

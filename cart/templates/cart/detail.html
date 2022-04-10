@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load static %}
+{% load menu %}
+{% block title %}
+    Корзина покупок
+{% endblock %}
+
+{% block content %}
+    {% for item in cart %}
+        {% with product=item.product %}
+            {# Содержимое корзины #}
+            <div class="product__item">
+                <div class="product__left">
+                    <div class="icon">
+                        <img src="
+                                {% if product.img %}
+                                    {{ product.img.url }}
+                                {% else %}
+                                    {% static 'css/assets/img/number__img.png' %}
+                                {% endif %}" alt="{{ product.title }}"/>
+                    </div>
+                    <div class="left__body">
+                        <div class="left__title">{{ product.title }}</div>
+                        <div class="left__subscrible">
+                            {{ product.subscrible | safe }}
+                        </div>
+                    </div>
+                </div>
+                <div>Цена за 1 шт. {{ product.price }} ₽</div>
+                <div class="product__right">
+                    <div class="sub__form">
+
+                        <form action="{% url 'cart:remove_from_cart' product|to_class_name product.id %}"
+                              method='post'>
+                            {% csrf_token %}
+                            <button type="submit" class="submit">Удалить</button>
+                        </form>
+
+                        {#<form action="{% url 'cart:add_to_cart' product|to_class_name product.id %}" method='post'>#}
+                        <form action="{% url 'cart:add_to_cart' product|to_class_name product.id %}"
+                              method='post'>
+                            <div class="counter">
+                                <button type="button" class="minus">-</button>
+                                <input type="text" name="quantity" value="{{ item.quantity }}" maxlength="2"
+                                       class="count" autocomplete="off"/>
+                                <button type="button" class="plus">+</button>
+                                <input type="hidden" name="update" value="True">
+                            </div>
+                            {% csrf_token %}
+                            <button type="submit" class="submit">Обновить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {# Содержимое предварительного итога #}
+            <div class="right__item product__item-right">
+                <div class="productName">{{ product.title }}</div>
+                <div class="productAmount">{{ item.total_price }} ₽</div>
+            </div>
+        {% endwith %}
+    {% endfor %}
+
+    <div class="basket">
+        <div class="container">
+            <div class="basket__title {{ purchase_is_perfect }}">Корзина</div>
+            <div class="basket__body">
+                <div class="basket__body--left">
+                    <div class="products">
+                        {# <a href="{% url 'cart:clear' %}">Удалить всё</a> #}
+                        {# Содержимое корзины #}
+                    </div>
+                </div>
+
+                <div class="basket__body--right">
+                    <div class="right__title">Предварительный итог</div>
+                    {# Содержимое предварительного итога #}
+                    <div class="line"></div>
+                    <div class="right__item">
+                        <div class="productName">Общая сумма</div>
+                        <div class="productAmount"
+                             id="productAmount">{# Общая сумма #}</div>
+                    </div>
+                    <div class="line"></div>
+                    <form action="{% url 'cart:cart_order_number' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Оформить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // добавление в блоки .products и после .right__title контент
+        let products = document.querySelector(".products"),
+            product__item = document.querySelectorAll(".product__item"),
+            right__title = document.querySelector(".right__title"),
+            right__item = document.querySelectorAll(".product__item-right"),
+            yourBasket_sum = document.querySelector(".container__sum"),
+            productAmount = document.querySelector("#productAmount"),
+            yourBasket_count = document.querySelector(".container__quantuty"),
+            basket__title = document.querySelector(".basket__title"),
+            basket__body = document.querySelector(".basket__body"),
+            purchase_is_perfect = document.querySelector(".purchase_is_perfect"),
+            not_purchase_is_perfect = document.querySelector(".basket__title:not([class='purchase_is_perfect'])");
+        if (products && product__item && right__title && right__item && yourBasket_sum && productAmount && yourBasket_count) {
+            // левый контент
+            product__item.forEach((item) => products.prepend(item));
+            // правый контент
+            right__item.forEach((item) => right__title.after(item));
+            // копирование суммы в .right__title
+            productAmount.innerHTML = yourBasket_sum.innerHTML;
+
+            //count поле со значение количества
+            //minus кнопка минус
+            //plus кнопка плюс
+            //если два знака в поле то сужаем padding
+            counters = document.querySelectorAll(".count");
+            /*padding = () => {
+              count.value > 9
+                ? (count.style.padding = "0 3%")
+                : (count.style.padding = "0 10%");
+            };*/
+            minuses = document.querySelectorAll(".minus");
+            minuses.forEach((i, id) => {
+                i.onclick = (event) => {
+                    //отключаем стандартное поведение при клике
+                    event.preventDefault();
+                    // запрещаем значения меньше одного
+                    counters[id].value < 2 ? "" : counters[id].value--;
+                    //padding();
+                };
+            });
+
+            pluses = document.querySelectorAll(".plus");
+            pluses.forEach(
+                (i, id) =>
+                    (i.onclick = (event) => {
+                        //отключаем стандартное поведение при клике
+                        event.preventDefault();
+                        //запрещаем значения больше 99
+                        counters[id].value > 98 ? "" : counters[id].value++;
+                        //padding();
+                    })
+            );
+            //при непосредственом вводе с клавиатуры проверяем количество символов
+            counters.forEach(
+                (i) =>
+                    (i.oninput = () => {
+                        padding();
+                    })
+            );
+
+            //ввод в поле только цифр (событие нажатие клавиш)
+            counters.forEach(
+                (i) =>
+                    (i.onkeydown = (e) => {
+                        // backspace, delete клавиши
+                        if (e.keyCode == 8 || e.keyCode == 46) return;
+                        if (
+                            //цифры с основной клавиатуры
+                            (e.keyCode < 48 || e.keyCode > 57) &&
+                            //цифры с Num клавиатуры
+                            (e.keyCode < 96 || e.keyCode > 105)
+                        ) {
+                            e.preventDefault();
+                        }
+                    })
+            );
+            //устанавливаем в поле 1, если после расфокусировки поле пустое
+
+            counters.forEach(
+                (i) =>
+                    (i.onblur = () => {
+                        count.value == "" ? (count.value = 1) : "";
+                    })
+            );
+        }
+        if (purchase_is_perfect) {
+            basket__title.innerHTML = 'Спасибо за покупку :)';
+            basket__body.remove();
+        } else if (!yourBasket_count) {
+            basket__title.innerHTML = "Корзина пустая";
+            basket__body.remove();
+        }
+    </script>
+
+{% endblock %}

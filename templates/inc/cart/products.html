@@ -1,0 +1,46 @@
+{% with product=item.product %}
+<div class="product__item">
+    <div class="product__left">
+        <div class="icon">
+            <img src="
+                                {% if product.img %}
+                                    {{ product.img.url }}
+                                {% else %}
+                                    {% static 'css/assets/img/number__img.png' %}
+                                {% endif %}" alt="{{ product.title }}"/>
+        </div>
+        <div class="left__body">
+            <div class="left__title">{{ product.title }}</div>
+            <div class="left__subscrible">
+                {{ product.subscrible | safe }}
+            </div>
+        </div>
+    </div>
+    <div>Цена за 1 шт. {{ product.price }} ₽</div>
+    <div class="product__right">
+        <div class="sub__form">
+
+            <form action="{% url 'cart:remove_from_cart' product|to_class_name product.id %}"
+                  method='post'>
+                {% csrf_token %}
+                <button type="submit" class="submit">Удалить</button>
+            </form>
+
+            <!--                                <form action="{% url 'cart:add_to_cart' product|to_class_name product.id %}" method='post'>-->
+            <form action="{% url 'cart:add_to_cart' product|to_class_name product.id %}"
+                  method='post'>
+                <div class="counter">
+                    <button type="button" class="minus">-</button>
+                    <input type="text" name="quantity" value="{{ item.quantity }}" maxlength="2"
+                           class="count" autocomplete="off"/>
+                    <button type="button" class="plus">+</button>
+                    <input type="hidden" name="update" value="True">
+                </div>
+                {% csrf_token %}
+                <button type="submit" class="submit">Обновить</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endwith %}

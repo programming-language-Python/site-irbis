@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load menu %}
+
+{% block title %} {{ title }} :: {{ block.super }} {% endblock %}
+
+{% block content %}
+
+<div class="planka">{{ title }}</div>
+<div class="cards">
+    <div class="container">
+        <div class="card__items">
+            {% for item in items %}
+            <div class="card">
+                {% if item.img %}
+                <img class="number__img" src="{{ item.img.url }}" alt="{{ item.title }}" />
+                {% else %}
+                <img class="number__img" src="{% static './css/assets/img/number__img.png' %}" alt="{{ item.title }}" />
+                {% endif %}
+                <div class="card__title">
+                    <div class="text">{{ item.title }}</div>
+                    <div class="text__sub">{{ item.subscrible|truncatechars_html:25|safe }}</div>
+                </div>
+                <div class="card__price">{{ item.price }} ₽</div>
+                <div class="card__subtitle">
+                    <div class="left">
+                        <div class="link">
+                            <form action="{% url 'cart:add_to_cart' item|to_class_name item.id %}" method='post'>
+                                {% csrf_token %}
+                                <input type="hidden" name="quantity" value="1" maxlength="2" id="count"
+                                    autocomplete="off" />
+                                <button type="submit" class="link__btn">+</button>
+                                <input type="hidden" name="update" value="False" id="id_update">
+                            </form>
+                        </div>
+                        <div class="text">добавить в корзину</div>
+                    </div>
+                    <div class="right">
+                        <div class="link">
+                            <a href="{{ item.get_absolute_url }}"><img
+                                    src="{% static './css/assets/img/subscrible.svg' %}" alt="Подробнее" /></a>
+                        </div>
+                        <div class="text">подробнее</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% if page_obj.has_other_pages %}
+<div class="pagination">
+    <div class="nav-links">
+        {% if page_obj.has_previous %}
+        <a class="page-numbers" href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"
+                aria-hidden="true"></i></a>
+        {% endif %}
+
+        {% for p in page_obj.paginator.page_range %}
+        {% if page_obj.number == p %}
+        <span class="page-numbers current">{{ p }}</span>
+        {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+        <a class="page-numbers" href="?page={{ p }}">{{ p }}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <a class="page-numbers" href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"
+                aria-hidden="true"></i></a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

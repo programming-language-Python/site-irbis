@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="second">
+	<div class="container">
+		<div class="top">
+			<span></span>
+			<h3>о нас</h3>
+			<span></span>
+		</div>
+		<div class="center">
+			<div class="left">
+				<h3>описание отеля</h3>
+				<p>
+					Добро пожаловать в наш сказочный отель PINK IRBIS!
+					наш отель - это прекрасный выбор для тех, кто хочет отдохнуть от городской суеты и восстановить свои
+					силы.
+					В нашем отеле прекрасная атмосфера и месторасположение. Проживая в PINK IRBIS вы без труда сможете
+					посетить
+					достопремичательности около озера Байкала, отличные рестораны. На территории отеля имеются мини
+					автобусы, с
+					помощью которых вы сможете посетить достопримечательности.
+				</p>
+				<p>
+					PINK IRBIS предлагает круглосуточную стойку регистрации и хранение багажа, имеется бесплатная
+					парковка. Гости
+					отеля могут воспользоваться лобби.
+				</p>
+			</div>
+			<div class="right">
+				<iframe src="https://www.youtube.com/embed/5bEHec_pWWw"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen class="bb"></iframe><img src="{% static './css/assets/img/cc.png' %}" alt=""
+					class="cc" />
+			</div>
+		</div>
+	</div>
+</div>
+<div class="third">
+	<div class="container">
+		<div class="top">
+			<span></span>
+			<h3>Экскурсии</h3>
+			<!-- <h4>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores,
+        eos.
+      </h4> -->
+		</div>
+		<div class="center">
+			<div class="left">
+				<div class="imgs">
+					<img src="{% static './css/assets/img/bb.png' %}" alt="" class="bb" />
+					<img src="{% static './css/assets/img/cc.png' %}" alt="" class="cc" />
+				</div>
+				<div class="spans">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+			<div class="right">
+				<div class="imgs">
+					<img src="{% static './css/assets/img/bb.png' %}" alt="" class="bb" />
+					<div class="images">
+						<img src="{% static './css/assets/img/cc.png' %}" alt="" class="cc" />
+						<img src="{% static './css/assets/img/cc.png' %}" alt="" class="cc" />
+					</div>
+				</div>
+				<div class="spans">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="four">
+	<div class="container">
+		<div class="center">
+			<div class="left">
+				<!-- <h3>Экскурсии</h3> -->
+				<h4>наш отель предлагает большой выбор экскурсий</h4>
+				<ul>
+					<li>Экскурсия на хивусе "Кругобайкальская железная дорога"</li>
+					<li>Экскурсия на хивусе "Бухта Песчанная"</li>
+					<li>Ледовая сказка на снегоходе</li>
+					<li>Байкальские истории. На снегоходах по зимней тайге</li>
+					<li>Ольхон - сердце Байкала</li>
+					<li>Экскурсия в Аршан</li>
+					<li>Программа с спикником на собачьих упряжках</li>
+					<li>В гости к диким животным</li>
+					<li>Байкальские истории на квадрациклах</li>
+					<li>Красоты Приморского хребтаэкскурсия на мыс Хобой из Худжира</li>
+					<li>Долина реки Зундук, озера Зама</li>
+					<li>Вечерняя прогулка по островам Малого Моря</li>
+					<li>Экскурсия на теплые озера Хамар-Дабана</li>
+					<li>Экскурсия в музей "Тальцы"</li>
+					<li>Экскурсия в энографический музей в Усть-Орду</li>
+					<li>Восхождение на вершину полуострова Святой нос</li>
+				</ul>
+			</div>
+			<div class="right">
+				<img src="{% static './css/assets/img/bb.png' %}" alt="" class="cc" />
+				<img src="{% static './css/assets/img/bb.png' %}" alt="" class="cc" />
+				<img src="{% static './css/assets/img/bb.png' %}" alt="" class="cc" />
+			</div>
+		</div>
+	</div>
+</div>
+<div class="five">
+	<div class="container">
+		<div class="top">
+			<span></span>
+			<h3>фотографии территории отеля </h3>
+			<span></span>
+		</div>
+		<div class="cont">
+			<a class="previous" onclick="previousSlide()" style="font-size: 50px; cursor: pointer">&#10094;</a>
+			<div class="slider">
+				<!-- Первый слайд -->
+				<div class="item">
+					<img src="https://s3.tproger.ru/uploads/2020/07/field.jpg" />
+				</div>
+
+				<!-- Второй слайд -->
+				<div class="item">
+					<img src="https://s3.tproger.ru/uploads/2020/07/rose.jpg" />
+				</div>
+				<!-- Третий слайд -->
+				<div class="item">
+					<img src="https://s3.tproger.ru/uploads/2020/07/leaf.jpg" />
+				</div>
+			</div>
+			<a class="next" onclick="nextSlide()" style="font-size: 50px; cursor: pointer">&#10095;</a>
+		</div>
+	</div>
+</div>
+<div class="six" id="six">
+	<div class="container">
+		<div class="center">
+			<div class="left">
+				<h3 style='text-shadow: 1px 1px 3px #3d3d3d, 0 0 1em #11263a;'>Бронирование номеров</h3>
+				<p>Оставьте свои контактные данные.</p>
+				<p>И с вами свяжутся через некоторое время.</p>
+				<div class="social">
+					<a href=""><img src="" alt="" /></a>
+					<a href=""><img src="" alt="" /></a>
+					<a href=""><img src="" alt="" /></a>
+					<a href=""><img src="" alt="" /></a>
+					<a href=""><img src="" alt="" /></a>
+				</div>
+			</div>
+			{% comment %} <div class="right">
+				<form action="">
+					<div class="title">Бронировать номер</div>
+					<input type="text" placeholder="Имя" />
+					<input type="text" placeholder="Номер телефона" />
+					<input type="text" placeholder="Электронная почта" />
+					<button>Отправить</button>
+				</form>
+			</div> {% endcomment %}
+		</div>
+	</div>
+</div>
+
+<script>
+	let slideIndex = 1;
+	showSlides(slideIndex);
+
+	function nextSlide() {
+		showSlides((slideIndex += 1));
+	}
+
+	function previousSlide() {
+		showSlides((slideIndex -= 1));
+	}
+
+	function currentSlide(n) {
+		showSlides((slideIndex = n));
+	}
+
+	function showSlides(n) {
+		let i;
+		let slides = document.getElementsByClassName("item");
+		if (n > slides.length) {
+			slideIndex = 1;
+		}
+		if (n < 1) {
+			slideIndex = slides.length;
+		}
+		for (let slide of slides) {
+			slide.style.display = "none";
+		}
+		slides[slideIndex - 1].style.display = "block";
+	}
+</script>
+
+{% endblock %}

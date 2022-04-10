@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load menu %}
+
+{% block title %} {{ item.title }} :: {{ block.super }} {% endblock %}
+
+{% block content %}
+<div class="card__once">
+    <div class="container">
+        <div class="card__body">
+            <div class="right">
+                <div class="right__title">{{ item.title }}</div>
+                <div class="right__cost">{{ item.price }} ₽</div>
+                <div class="right__text">
+                    {{ item.subscrible|safe }}
+                </div>
+                <div class="right__add">
+                    <form action="{% url 'cart:add_to_cart' item|to_class_name item.id %}" method='post'>
+                        <div class="sub__form">
+                            <div class="counter">
+                                <button class="minus" id="minus">-</button>
+                                <input type="text" name="quantity" value="1" maxlength="2" id="count"
+                                    autocomplete="off" />
+                                <button class="plus" id="plus">+</button>
+                                <input type="hidden" name="update" value="False" id="id_update">
+                            </div>
+                            {% csrf_token %}
+                            <button type="submit" class="submit">
+                                Добавить в корзину
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //count поле со значение количества
+    //minus кнопка минус
+    //plus кнопка плюс
+    //если два знака в поле то сужаем padding
+    padding = () => {
+        count.value > 9 ?
+            (count.style.padding = "0 3%") :
+            (count.style.padding = "0 10%");
+    };
+    minus.onclick = (e) => {
+        //отключаем стандартное поведение при клике
+        e.preventDefault();
+        // запрещаем значения меньше одного
+        count.value < 2 ? "" : count.value--;
+        padding();
+    };
+    plus.onclick = (e) => {
+        //отключаем стандартное поведение при клике
+        e.preventDefault();
+        //запрещаем значения больше 99
+        count.value > 98 ? "" : count.value++;
+        padding();
+    };
+    //при непосредственом вводе с клавиатуры проверяем количество символов
+    count.oninput = () => {
+        padding();
+    };
+    //ввод в поле только цифр (событие нажатие клавиш)
+    count.onkeydown = (e) => {
+        // backspace, delete клавиши
+        if (e.keyCode == 8 || e.keyCode == 46) return;
+        if (
+            //цифры с основной клавиатуры
+            (e.keyCode < 48 || e.keyCode > 57) &&
+            //цифры с Num клавиатуры
+            (e.keyCode < 96 || e.keyCode > 105)
+        ) {
+            e.preventDefault();
+        }
+    };
+    //устанавливаем в поле 1, если после расфокусировки поле пустое
+    count.onblur = () => {
+        count.value == "" ? (count.value = 1) : "";
+    };
+</script>
+
+{% endblock %}

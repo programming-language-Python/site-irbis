@@ -1,0 +1,13 @@
+{% comment %} {% load cache %}
+{% cache 60 * 30 headerElements %} {% endcomment %}
+{% comment %} <li><a href="">Фотогалерея</a></li>
+<li><a href="">События</a></li> {% endcomment %}
+<li><a href="{% url 'app:excursion' %}">Экскурсии</a></li>
+<li><a href="{% url 'app:numbers' %}">Номера</a></li>
+{% comment %} <li><a href="">Конференц-зал</a></li> {% endcomment %}
+<li><a href="{% url 'app:menu' %}">Ресторан</a></li>
+{% comment %} <li><a href="">Сауна</a></li>
+<li><a href="">Оставить отзыв</a></li>
+<li><a href="">Контакты</a></li> {% endcomment %}
+{% comment %} <li><a href="{% url 'app:orders' %}">Заказы</a></li> {% endcomment %}
+{% comment %} {% endcache %} {% endcomment %}

@@ -1,0 +1,40 @@
+{% load static %}
+{% load menu %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %} IRBIS {% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'css/assets/img/Bars.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"/>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+
+<body>
+
+
+{% include 'inc/_header.html' %}
+
+{% block content %}{% endblock %}
+
+{% include 'inc/_footer.html' %}
+
+
+<script>
+    // удаление блоков в header на всех страницах кроме главной
+    if (window.location.pathname != '/') {
+        let rem = document.querySelectorAll('.remove');
+        for (let item of rem) {
+            item.remove();
+        }
+    } else {
+        document.querySelector('.copyright.remove').remove();
+    }
+</script>
+</body>
+
+</html>

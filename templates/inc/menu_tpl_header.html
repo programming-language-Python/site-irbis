@@ -1,0 +1,66 @@
+{% load static %}
+{% load menu %}
+<div class="{{ first }}">
+    <img class="img remove" src="{% static './css/assets/img/fon.png' %}" alt=""/>
+    <div class="{{ header__cards }}">
+        <div class="{{ container }}">
+            <nav>
+                <a href="{% url 'app:home' %}"><img src="{% static './css/assets/img/Bars.png' %}" alt=""/>
+                    <p>PINK IRBIS</p>
+                </a>
+                <ul>
+
+                    {% include 'inc/headerElements.html' %}
+
+                    <li>
+                        {% if tmp_request.user.is_authenticated %}
+                            Добро пожаловать, {{ tmp_request.user }} |
+                            <form action="{% url 'app:logout' %}">
+                                <button
+                                        type="submit" class="submit"
+                                        style="background-color: rgba(0, 0, 0, 0); color:white;">Выход
+                                </button>
+                            </form>
+                        {% else %}
+                            <a href="{% url 'app:login' %}">Вход</a>
+                        {% endif %}
+                    </li>
+
+                    {% with count=tmp_cart.count %}
+                        <li>
+                            {% if count > 0 %}
+                                Твоя корзина:
+                                <a href="{% url 'cart:cart_detail' %}">
+                                    <span>
+                                        <span class="container__quantuty">{{ count }}</span> товаров,
+                                        <span class="container__sum">{{ tmp_cart.summary }} ₽</span>
+                                    </span>
+                                </a>
+                            {% else %}
+                                Корзина пустая
+                            {% endif %}
+                        </li>
+                    {% endwith %}
+                </ul>
+            </nav>
+        </div>
+        <div class="center remove" id="center">
+            <h1>
+                {% if tmp_request.user.is_authenticated %}
+                    Добро пожаловать, {{ tmp_request.user }}!
+                {% else %}
+                    Добро пожаловать!
+                {% endif %}
+            </h1>
+            <h2>
+                в сказочный отель
+            </h2>
+            {% comment %} <a href="#six">забронировать номер</a> {% endcomment %}
+        </div>
+        <div class="span remove" id="span">
+            <span class="span"></span>
+            <span class="span"></span>
+        </div>
+        <div class="copyright remove">copyright 2019-2021</div>
+    </div>
+</div>

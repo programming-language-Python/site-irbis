@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Авторизация :: {{ block.super }} {% endblock %}
+
+{% block content %}
+
+<div class="login">
+	<form class="form" method='post'>
+
+		{% csrf_token %}
+
+		<div class="form__title">Вход</div>
+
+		{{ form }}
+
+		<button type="submit" id="submit">Авторизоваться</button>
+		<a href="{% url 'app:register' %}">У вас нет аккаунта? Зарегистрируйтесь!</a>
+	</form>
+</div>
+
+{% endblock %}
