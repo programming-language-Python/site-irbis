@@ -15,7 +15,7 @@
             {% for item in items %}
             <div class="card">
                 {% if item.img %}
-                <img class="number__img" src="{{ item.get_img }}" alt="{{ item.title }}" />
+                <img class="number__img" src="{{ item.img.url }}" alt="{{ item.title }}" />
                 {% else %}
                 <img class="number__img" src="{% static './css/assets/img/number__img.png' %}" alt="{{ item.title }}" />
                 {% endif %}
