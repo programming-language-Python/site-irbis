@@ -35,9 +35,6 @@ class Numbers(models.Model):
     def __str__(self):
         return str(self.id)
 
-    def get_img(self):
-        return MEDIA_URL + str(self.img)
-
     # для админки
     class Meta:
         verbose_name = 'Номер'
@@ -77,9 +74,6 @@ class Excursion(models.Model):
     def get_absolute_url(self):
         return reverse('app:card_excursion', kwargs={"excursion_id": self.pk})
 
-    def get_img(self):
-        return MEDIA_URL + str(self.img)
-
     class Meta:
         verbose_name = 'Экскурссия'
         verbose_name_plural = 'Экскурссии'
@@ -102,9 +96,6 @@ class Menu(models.Model):
 
     def get_absolute_url(self):
         return reverse('app:card_menu', kwargs={"menu_id": self.pk})
-
-    def get_img(self):
-        return MEDIA_URL + str(self.img)
 
     class Meta:
         verbose_name = 'Меню'
