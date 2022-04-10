@@ -132,8 +132,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'irbis/static'),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'photos')
-MEDIA_URL = '/photos/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 INTERNAL_IPS = ['127.0.0.1', ]
 
